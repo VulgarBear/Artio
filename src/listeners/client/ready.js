@@ -1,5 +1,4 @@
 const { Listener } = require('discord-akairo')
-const snekfetch = require('snekfetch')
 const Logger = require('../../util/Logger')
 const Starboard = require('../../struct/Starboard')
 

@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo')
-const { get } = require('snekfetch')
+const fetch = require('node-fetch')
 
 class ChronoCommand extends Command {
   constructor () {
@@ -16,29 +16,29 @@ class ChronoCommand extends Command {
   }
 
   async exec (msg) {
-    const loading = await this.client.emojis.resolve('620109183399755796')
-    const ohNo = await this.client.emojis.resolve('620106037390999558')
+    const loading = await this.client.emojis.resolve('541151509946171402')
+    const ohNo = await this.client.emojis.resolve('541151482599440385')
 
     const m = await msg.channel.send(`${loading} **Checking out chrono.gg...**`)
 
-    const { body } = await get('https://api.chrono.gg/sale')
-    if (body.length === 0) return m.edit(`${ohNo} Couldn't find any deals...`).then(msg.delete())
+    const res = await fetch('https://api.chrono.gg/sale').then(res => res.json())
+    if (res.length === 0) return m.edit(`${ohNo} Couldn't find any deals...`).then(msg.delete())
 
     const embed = this.client.util.embed()
-      .setTitle(body.name)
+      .setTitle(res.name)
       .setColor(process.env.EMBED)
       .setTimestamp()
       .setFooter(`Requested by ${msg.author.tag} | Chrono API`, `${msg.author.displayAvatarURL()}`)
-      .setThumbnail(body.promo_image)
+      .setThumbnail(res.promo_image)
       .addField('Price', [
-        `**Normal Price:** $${body.normal_price}`,
-        `**Sale Price:** $${body.sale_price}`
+        `**Normal Price:** $${res.normal_price}`,
+        `**Sale Price:** $${res.sale_price}`
       ], true)
       .addField('Links', [
-        `[**Chrono.gg**](${body.unique_url})`,
-        `[**Steam**](${body.steam_url})`
+        `[**Chrono.gg**](${res.unique_url})`,
+        `[**Steam**](${res.steam_url})`
       ], true)
-      .addField('Platform', body.platforms.toString())
+      .addField('Platform', res.platforms.toString())
 
     m.edit({ embed }).then(msg.delete())
   }
