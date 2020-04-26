@@ -21,8 +21,8 @@ class PollCommand extends Command {
   }
 
   async exec (msg, { question }) {
-    const goodEmoji = await this.client.emojis.resolve('541151462642941962')
-    const badEmoji = await this.client.emojis.resolve('541151482599440385')
+    const goodEmoji = await this.client.emojis.resolve('620106037361508353')
+    const badEmoji = await this.client.emojis.resolve('620106037390999558')
 
     const embed = this.client.util.embed()
       .setTitle('Server Poll | React to Vote')

@@ -28,8 +28,8 @@ class InsultCommand extends Command {
   }
 
   async exec (msg, { member }) {
-    const loading = await this.client.emojis.resolve('541151509946171402')
-    const ohNo = await this.client.emojis.resolve('541151482599440385')
+    const loading = await this.client.emojis.resolve('620109183399755796')
+    const ohNo = await this.client.emojis.resolve('620106037390999558')
 
     const m = await msg.channel.send(`${loading} looking for a savage insult!`)
 
